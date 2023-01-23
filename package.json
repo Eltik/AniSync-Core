@@ -5,7 +5,7 @@
     },
     "name": "anisync-core",
     "description": "AniSync's core library.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "./built/AniSync.js",
     "scripts": {
         "test": "node ./test.js",

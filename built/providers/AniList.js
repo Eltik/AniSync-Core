@@ -18,6 +18,8 @@ class AniList extends API_1.default {
         english
         native
     }
+    seasonYear
+    format
     `;
         this.type = type ? type : Type.ANIME;
         this.format = format ? format : Format.TV;
@@ -74,6 +76,8 @@ class AniList extends API_1.default {
                     romaji: result.title.romaji,
                     native: result.title.native,
                 },
+                year: String(result.seasonYear),
+                format: result.format,
                 data: result
             }));
         }

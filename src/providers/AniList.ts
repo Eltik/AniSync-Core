@@ -15,6 +15,8 @@ export default class AniList extends API {
         english
         native
     }
+    seasonYear
+    format
     `;
 
     constructor(type:Type, format?:Format) {
@@ -79,6 +81,8 @@ export default class AniList extends API {
                     romaji: result.title.romaji,
                     native: result.title.native,
                 },
+                year: String(result.seasonYear),
+                format: result.format,
                 data: result
             }));
         } catch (e) {
@@ -151,6 +155,8 @@ interface Query {
     id:number;
     idMal:number;
     title: Title;
+    seasonYear:number;
+    format:Format;
 };
 
 interface Title {

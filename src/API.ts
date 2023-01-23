@@ -2,6 +2,7 @@ import PromiseRequest, { Options, Response } from "./libraries/promise-request";
 import { Cheerio, load } from "cheerio";
 import { ReadStream, WriteStream } from "fs";
 import StringSimilarity from "./libraries/StringSimilarity";
+import { Format } from "./providers/AniList";
 
 export default class API {
     private stringSim:StringSimilarity = new StringSimilarity();
@@ -120,6 +121,12 @@ export default class API {
         const romaj2 = result2.title.romaji != undefined ? result2.title.romaji.toLowerCase() : undefined;
         const native2 = result2.title.native != undefined ? result2.title.native.toLowerCase() : undefined;
 
+        const year1 = result1.year != undefined && result1.year != "null" ? String(result1.year).toLowerCase() : undefined;
+        const year2 = result2.year != undefined && result2.year != "null" ? String(result2.year).toLowerCase() : undefined;
+
+        const format1 = result1.format != undefined ? result1.format.toLowerCase() : undefined;
+        const format2 = result2.format != undefined ? result2.format.toLowerCase() : undefined;
+
         // Check title
         if (eng1 != undefined && eng2 != undefined) {
             tries++;
@@ -144,6 +151,22 @@ export default class API {
                 amount++;
             }
         }
+
+        if (year1 != undefined && year2 != undefined) {
+            tries++;
+            const stringComparison = this.stringSim.compareTwoStrings(year1, year2);
+            if (year1 === year2 || stringComparison > threshold) {
+                amount++;
+            }
+        }
+
+        if (format1 != undefined && format2 != undefined) {
+            tries++;
+            const stringComparison = this.stringSim.compareTwoStrings(format1, format2);
+            if (format1 === format2 || stringComparison > threshold) {
+                amount++;
+            }
+        }
         return amount / tries;
     }
 }
@@ -158,8 +181,10 @@ interface Media {
         english?:string;
         romaji?:string;
         native?:string;
-    },
-    data?:any
+    };
+    year?:string;
+    format?:Format;
+    data?:any;
 }
 
 export enum ProviderType {

@@ -1,5 +1,5 @@
 import API, { Media } from "../API";
-import { Type } from "./AniList";
+import { Format, Type } from "./AniList";
 
 export default class Kitsu extends API {
     private api = 'https://kitsu.io/api/edge';
@@ -51,6 +51,8 @@ export default class Kitsu extends API {
                             romaji: result.attributes.titles.en_jp,
                             native: result.attributes.titles.ja_jp,
                         },
+                        year: result.attributes.startDate.split('-')[0], // Kitsu year returns in YYYY-MM-DD format
+                        format: result.attributes.subtype as Format,
                         data: result
                     });
                 });
@@ -89,6 +91,8 @@ export default class Kitsu extends API {
                             romaji: result.attributes.titles.en_jp,
                             native: result.attributes.titles.ja_jp,
                         },
+                        year: result.attributes.startDate.split('-')[0], // Kitsu year returns in YYYY-MM-DD format
+                        format: result.attributes.subtype as Format,
                         data: result
                     });
                 });

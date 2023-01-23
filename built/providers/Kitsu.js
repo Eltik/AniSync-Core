@@ -48,6 +48,8 @@ class Kitsu extends API_1.default {
                             romaji: result.attributes.titles.en_jp,
                             native: result.attributes.titles.ja_jp,
                         },
+                        year: result.attributes.startDate.split('-')[0],
+                        format: result.attributes.subtype,
                         data: result
                     });
                 });
